@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODE University Berlin - Student Founded Startups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stats-section {
+            background: white;
+            padding: 3rem 2rem;
+            margin: -2rem auto 3rem;
+            max-width: 1200px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2d3748;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .company-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .company-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .company-title-group {
+            flex: 1;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        .company-year {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .company-description {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .company-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-row {
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag.yc {
+            background: #fff5f5;
+            color: #c53030;
+        }
+
+        .tag.funding {
+            background: #f0fff4;
+            color: #22543d;
+        }
+
+        .tag.exit {
+            background: #fffaf0;
+            color: #744210;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        .intro-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .intro-section p {
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .intro-section strong {
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CODE University Berlin</h1>
+        <p>Empowering the Next Generation of Tech Entrepreneurs</p>
+    </div>
+
+    <div class="stats-section">
+        <div class="stats-grid">
+            <div class="stat">
+                <div class="stat-number">60+</div>
+                <div class="stat-label">Companies Founded</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">€250M+</div>
+                <div class="stat-label">Total Funding Raised</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Y Combinator Startups</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">€100M+</div>
+                <div class="stat-label">Cumulative Valuation</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-section">
+            <p>Since its founding in <strong>2017</strong>, CODE University of Applied Sciences has established itself as <strong>Germany's leading private university for tech talent and technology-driven founders</strong>. With around 600 students from over 80 nations, CODE has created a unique ecosystem where students don't just learn about technology—they build companies that shape the future.</p>
+            <p>Our students have founded <strong>more than 60 companies</strong>, many of which have become highly successful startups. In terms of the ratio of students to companies founded, CODE is <strong>Germany's most active startup university</strong>.</p>
+            <p>CODE offers a hands-on, project-based curriculum that encourages students to develop and launch their own ventures, with mentorship from industry leaders and access to a robust network of partners including Porsche, Meta, AWS, Telekom, and Bosch.</p>
+        </div>
+
+        <h2 class="section-title">Featured Student-Founded Startups</h2>
+
+        <div class="companies-grid">
+            <!-- SLAY -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-icon">SL</div>
+                    <div class="company-title-group">
+                        <div class="company-name">SLAY</div>
+                        <div class="company-year">Founded 2022</div>
+                    </div>
+                </div>
+                <div class="company-description">
+                    A social gaming platform focused on positivity that attracts more than 2.5 million monthly active users. SLAY creates engaging multiplayer games that bring people together in fun and meaningful ways.
+                </div>
+                <div class="company-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Founders</div>
+                        <div class="detail-value">Fabian Kamberi, Jannis Ringwald, Stefan Quernhorst</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Funding</div>
+                        <div class="detail-value">$5M from Accel and other investors</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag yc">Y Combinator</span>
+                    <span class="tag funding">$5M Raised</span>
+                    <span class="tag">Gaming</span>
+                    <span class="tag">Social Platform</span>
+                </div>
+            </div>
+
+            <!-- Kombo -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-icon">KB</div>
+                    <div class="company-title-group">
+                        <div class="company-name">Kombo</div>
+                        <div class="company-year">Founded 2022</div>
+                    </div>
+                </div>
+                <div class="company-description">
+                    A unified API for HR, payroll, and recruiting software. Kombo enables software companies to offer integrations with dozens of HR and recruiting systems at once, eliminating the need to build individual integrations.
+                </div>
+                <div class="company-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Founders</div>
+                        <div class="detail-value">Alexander Kübel, Aike Hillbrands, Fabian Rothfuß, Niklas Higi</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Funding</div>
+                        <div class="detail-value">€8M raised</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag yc">Y Combinator</span>
+                    <span class="tag funding">€8M Raised</span>
+                    <span class="tag">HR Tech</span>
+                    <span class="tag">API Integration</span>
+                </div>
+            </div>
+
+            <!-- Langdock -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-icon">LD</div>
+                    <div class="company-title-group">
+                        <div class="company-name">Langdock</div>
+                        <div class="company-year">Founded 2023</div>
+                    </div>
+                </div>
+                <div class="company-description">
+                    A GDPR-compliant AI platform that enhances team productivity by integrating generative AI with a company's internal data. Langdock helps companies manage and control AI tool usage in a compliant manner.
+                </div>
+                <div class="company-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Founders</div>
+                        <div class="detail-value">Lennard Schmidt, Jonas Beisswenger, Tobias Kemkes</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Funding</div>
+                        <div class="detail-value">$3M led by General Catalyst and La Famiglia</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Clients</div>
+                        <div class="detail-value">Merck, GetYourGuide, and others</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag yc">Y Combinator</span>
+                    <span class="tag funding">$3M Raised</span>
+                    <span class="tag">AI</span>
+                    <span class="tag">Enterprise SaaS</span>
+                </div>
+            </div>
+
+            <!-- Certus One -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-icon">C1</div>
+                    <div class="company-title-group">
+                        <div class="company-name">Certus One</div>
+                        <div class="company-year">Founded 2018 • Acquired 2021</div>
+                    </div>
+                </div>
+                <div class="company-description">
+                    Blockchain engineering firm specializing in Proof of Stake infrastructure. Core developer of Wormhole, enabling cross-blockchain token transfers. Acquired by Jump Trading's digital assets group in 2021.
+                </div>
+                <div class="company-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Founders</div>
+                        <div class="detail-value">Hendrik Hofstadt, Valentin von Albrecht, Leopold Schabel</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Exit</div>
+                        <div class="detail-value">Acquired by Jump Trading (Chicago)</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notable</div>
+                        <div class="detail-value">First CODE University startup to be acquired</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag exit">Successful Exit</span>
+                    <span class="tag">Blockchain</span>
+                    <span class="tag">Infrastructure</span>
+                </div>
+            </div>
+
+            <!-- AULIOS -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-icon">AU</div>
+                    <div class="company-title-group">
+                        <div class="company-name">AULIOS</div>
+                        <div class="company-year">Founded 2021</div>
+                    </div>
+                </div>
+                <div class="company-description">
+                    The world's first software for fully automated creation of sound-based light shows in real-time for clubs, concerts, and festivals. AULIOS translates sound into light, eliminating the need for manual light programming.
+                </div>
+                <div class="company-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Founders</div>
+                        <div class="detail-value">Alexander Gerick, Marius-Julian Marx</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Recognition</div>
+                        <div class="detail-value">Winner of Bulldog Gin Founders' Competition (€25,000)</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Origin</div>
+                        <div class="detail-value">Started as a CODE University project in January 2021</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag">AI</span>
+                    <span class="tag">Event Tech</span>
+                    <span class="tag">Entertainment</span>
+                </div>
+            </div>
+
+            <!-- Bool Capital -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-icon">BC</div>
+                    <div class="company-title-group">
+                        <div class="company-name">Bool Capital</div>
+                        <div class="company-year">Founded post-2021</div>
+                    </div>
+                </div>
+                <div class="company-description">
+                    A private investment firm building deep-tech ventures in cloud infrastructure, blockchain, and cybersecurity. Founded by the Certus One team following their successful exit to Jump Trading.
+                </div>
+                <div class="company-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Founders</div>
+                        <div class="detail-value">Hendrik Hofstadt, Valentin von Albrecht, Leopold Schabel</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Investment in CODE</div>
+                        <div class="detail-value">Mid-seven-figure investment in CODE University</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Focus</div>
+                        <div class="detail-value">Deep-tech ventures, blockchain, infrastructure</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag">Venture Capital</span>
+                    <span class="tag">Deep Tech</span>
+                    <span class="tag">Blockchain</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <h3 style="margin-bottom: 1rem; color: #2d3748;">The CODE Ecosystem</h3>
+            <p>CODE University is supported by Germany's leading startup entrepreneurs, including <strong>Rolf Schrömgens (founder of Trivago)</strong>, Benjamin Otto (heir to the Otto Group), Stephan Schambach, Patrick Adenauer, Ijad Madisch (founder of ResearchGate), Verena Pausder (founder of Fox and Sheep), and Heiko Hubertz (founder of Bigpoint).</p>
+            <p>The university offers a <strong>Summer Startup Program</strong>, a structured two-month program that turns CODE projects into companies over the summer break. With partnerships with companies like <strong>Porsche, AWS, Meta, Telekom, Bosch, and Masterplan</strong>, students have unparalleled access to industry expertise and resources.</p>
+            <p>Notable success stories include students like <strong>Valentin von Albrecht and Hendrik Hofstadt</strong>, who sold their high-frequency trading startup Certus One to Jump Trading after less than two years, and then reinvested their success back into CODE University through their family office Bool Capital.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>CODE University of Applied Sciences</strong></p>
+        <p>Founded 2017 by Thomas Bachem, Manuel Dolderer, and Jonathan Rüth</p>
+        <p>Berlin, Germany • <a href="https://code.berlin">code.berlin</a></p>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem;">This showcase was created to demonstrate the entrepreneurial success of CODE University students and alumni.</p>
+    </div>
+</body>
+</html>
