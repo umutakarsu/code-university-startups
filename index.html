@@ -101,6 +101,8 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.07);
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
         }
 
         .company-card:hover {
@@ -176,7 +178,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 1rem;
+            margin-top: auto;
         }
 
         .tag {
@@ -201,6 +203,11 @@
         .tag.exit {
             background: #fffaf0;
             color: #744210;
+        }
+
+        .tag.shutdown {
+            background: #f7fafc;
+            color: #718096;
         }
 
         .footer {
@@ -280,9 +287,9 @@
 
         .social-icon {
             display: inline-block;
-            width: 16px;
-            height: 16px;
-            margin-left: 4px;
+            width: 14px;
+            height: 14px;
+            margin-left: 2px;
             vertical-align: middle;
             opacity: 0.5;
             transition: opacity 0.2s ease;
@@ -290,6 +297,128 @@
 
         .social-icon:hover {
             opacity: 1;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .disclaimer-banner {
+            background: #fefce8;
+            border: 1px solid #fde68a;
+            color: #713f12;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .disclaimer-banner strong {
+            color: #713f12;
+        }
+
+        .submit-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .submit-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .submit-section p {
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.7;
+        }
+
+        .submit-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .submit-btn {
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn.outline {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .methodology {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+        }
+
+        .methodology h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .methodology p {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .methodology ul {
+            color: #4a5568;
+            line-height: 1.8;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
         }
     </style>
 </head>
@@ -302,250 +431,61 @@
     <div class="stats-section">
         <div class="stats-grid">
             <div class="stat">
-                <div class="stat-number">60+</div>
-                <div class="stat-label">Companies Founded</div>
+                <div class="stat-number" id="stat-count">—</div>
+                <div class="stat-label">Startups Showcased</div>
             </div>
             <div class="stat">
-                <div class="stat-number">€250M+</div>
+                <div class="stat-number">€280M+</div>
                 <div class="stat-label">Total Funding Raised</div>
             </div>
             <div class="stat">
-                <div class="stat-number">5</div>
+                <div class="stat-number" id="stat-yc">—</div>
                 <div class="stat-label">Y Combinator Startups</div>
             </div>
             <div class="stat">
-                <div class="stat-number">€100M+</div>
-                <div class="stat-label">Cumulative Valuation</div>
+                <div class="stat-number" id="stat-exits">—</div>
+                <div class="stat-label">Successful Exits</div>
             </div>
         </div>
     </div>
 
     <div class="container">
+        <div class="disclaimer-banner">
+            <strong>Note:</strong> This website is not affiliated with or made by CODE University. It was built by a prospective student who attended a CODE info session and noticed there was no public database of CODE-founded startups. The hope is that this becomes a useful resource for current students, alumni, and applicants.
+        </div>
+
         <div class="intro-section">
             <p>Since its founding in <strong>2017</strong>, CODE University of Applied Sciences has established itself as <strong>Germany's leading private university for tech talent and technology-driven founders</strong>. With around 600 students from over 80 nations, CODE has created a unique ecosystem where students don't just learn about technology—they build companies that shape the future.</p>
             <p>Our students have founded <strong>more than 60 companies</strong>, many of which have become highly successful startups. In terms of the ratio of students to companies founded, CODE is <strong>Germany's most active startup university</strong>.</p>
             <p>CODE offers a hands-on, project-based curriculum that encourages students to develop and launch their own ventures, with mentorship from industry leaders and access to a robust network of partners including Porsche, Meta, AWS, Telekom, and Bosch.</p>
         </div>
 
-        <h2 class="section-title">Featured Student-Founded Startups</h2>
+        <h2 class="section-title">Student-Founded Startups</h2>
 
-        <div class="companies-grid">
-            <!-- SLAY -->
-            <div class="company-card">
-                <div class="company-header">
-                    <div class="company-icon">SL</div>
-                    <div class="company-title-group">
-                        <div class="company-name">SLAY</div>
-                        <div class="company-year">Founded 2022</div>
-                    </div>
-                </div>
-                <div class="company-description">
-                    A social gaming platform focused on positivity that attracts more than 2.5 million monthly active users. SLAY creates engaging multiplayer games that bring people together in fun and meaningful ways.
-                </div>
-                <div class="company-details">
-                    <div class="detail-row">
-                        <div class="detail-label">Founders</div>
-                        <div class="detail-value">
-                            <a class="founder-link" href="https://www.linkedin.com/in/fabian-kamberi/" target="_blank">Fabian Kamberi</a> <a href="https://x.com/fabiankamberi" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/jannis-ringwald-68720915b/" target="_blank">Jannis Ringwald</a> <a href="https://x.com/JannisRingwald" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/stefanquernhorst/" target="_blank">Stefan Quernhorst</a> <a href="https://x.com/stefquernhorst" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Funding</div>
-                        <div class="detail-value">$5M from Accel and other investors</div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="tag yc">Y Combinator</span>
-                    <span class="tag funding">$5M Raised</span>
-                    <span class="tag">Gaming</span>
-                    <span class="tag">Social Platform</span>
-                </div>
-            </div>
+        <div class="filter-bar" id="filter-bar"></div>
 
-            <!-- Kombo -->
-            <div class="company-card">
-                <div class="company-header">
-                    <div class="company-icon">KB</div>
-                    <div class="company-title-group">
-                        <div class="company-name">Kombo</div>
-                        <div class="company-year">Founded 2022</div>
-                    </div>
-                </div>
-                <div class="company-description">
-                    A unified API for HR, payroll, and recruiting software. Kombo enables software companies to offer integrations with dozens of HR and recruiting systems at once, eliminating the need to build individual integrations.
-                </div>
-                <div class="company-details">
-                    <div class="detail-row">
-                        <div class="detail-label">Founders</div>
-                        <div class="detail-value">
-                            <a class="founder-link" href="https://www.linkedin.com/in/alexander-kuebel-8b8351180/" target="_blank">Alexander Kübel</a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/aike-hillbrands/" target="_blank">Aike Hillbrands</a> <a href="https://x.com/AikeHillbrands" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/fabianrothfuss/" target="_blank">Fabian Rothfuß</a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/niklashigi/" target="_blank">Niklas Higi</a> <a href="https://x.com/shroudedcode" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Funding</div>
-                        <div class="detail-value">€8M raised</div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="tag yc">Y Combinator</span>
-                    <span class="tag funding">€8M Raised</span>
-                    <span class="tag">HR Tech</span>
-                    <span class="tag">API Integration</span>
-                </div>
-            </div>
+        <div class="companies-grid" id="companies-grid"></div>
 
-            <!-- Langdock -->
-            <div class="company-card">
-                <div class="company-header">
-                    <div class="company-icon">LD</div>
-                    <div class="company-title-group">
-                        <div class="company-name">Langdock</div>
-                        <div class="company-year">Founded 2023</div>
-                    </div>
-                </div>
-                <div class="company-description">
-                    A GDPR-compliant AI platform that enhances team productivity by integrating generative AI with a company's internal data. Langdock helps companies manage and control AI tool usage in a compliant manner.
-                </div>
-                <div class="company-details">
-                    <div class="detail-row">
-                        <div class="detail-label">Founders</div>
-                        <div class="detail-value">
-                            <a class="founder-link" href="https://www.linkedin.com/in/lennardschmidt/" target="_blank">Lennard Schmidt</a> <a href="https://x.com/lenschmi" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/jonasbeisswenger/" target="_blank">Jonas Beisswenger</a> <a href="https://x.com/jbeissw" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/tobiaskemkes/" target="_blank">Tobias Kemkes</a>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Funding</div>
-                        <div class="detail-value">$3M led by General Catalyst and La Famiglia</div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Clients</div>
-                        <div class="detail-value">Merck, GetYourGuide, and others</div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="tag yc">Y Combinator</span>
-                    <span class="tag funding">$3M Raised</span>
-                    <span class="tag">AI</span>
-                    <span class="tag">Enterprise SaaS</span>
-                </div>
+        <div class="submit-section">
+            <h3>Are you a CODE student or alumnus with a startup?</h3>
+            <p>This list is far from complete — CODE has produced 60+ companies, and we'd love to feature yours. If you're a current student, alumnus, or know someone who founded a company while at CODE, send us your details and we'll add it.</p>
+            <div class="submit-buttons">
+                <a class="submit-btn" href="https://github.com/umutakarsu/code-university-startups/issues/new?title=Add+startup:+[Company+Name]&body=**Company+name:**%0A**Year+founded:**%0A**Founders+(with+LinkedIn):**%0A**What+it+does:**%0A**Funding+/+status:**%0A**Tags:**%0A**Source+/+verification+link:**" target="_blank" rel="noopener">Submit via GitHub</a>
+                <a class="submit-btn outline" href="https://github.com/umutakarsu/code-university-startups" target="_blank" rel="noopener">View on GitHub</a>
             </div>
+        </div>
 
-            <!-- Certus One -->
-            <div class="company-card">
-                <div class="company-header">
-                    <div class="company-icon">C1</div>
-                    <div class="company-title-group">
-                        <div class="company-name">Certus One</div>
-                        <div class="company-year">Founded 2018 • Acquired 2021</div>
-                    </div>
-                </div>
-                <div class="company-description">
-                    Blockchain engineering firm specializing in Proof of Stake infrastructure. Core developer of Wormhole, enabling cross-blockchain token transfers. Acquired by Jump Trading's digital assets group in 2021.
-                </div>
-                <div class="company-details">
-                    <div class="detail-row">
-                        <div class="detail-label">Founders</div>
-                        <div class="detail-value">
-                            <a class="founder-link" href="https://www.linkedin.com/in/hendrik-hofstadt/" target="_blank">Hendrik Hofstadt</a> <a href="https://x.com/hendrikhofstadt" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://x.com/valentalb" target="_blank">Valentin von Albrecht</a>,
-                            <a class="founder-link" href="https://x.com/leolukde" target="_blank">Leopold Schabel</a>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Exit</div>
-                        <div class="detail-value">Acquired by Jump Trading (Chicago)</div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Notable</div>
-                        <div class="detail-value">First CODE University startup to be acquired</div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="tag exit">Successful Exit</span>
-                    <span class="tag">Blockchain</span>
-                    <span class="tag">Infrastructure</span>
-                </div>
-            </div>
-
-            <!-- AULIOS -->
-            <div class="company-card">
-                <div class="company-header">
-                    <div class="company-icon">AU</div>
-                    <div class="company-title-group">
-                        <div class="company-name">AULIOS</div>
-                        <div class="company-year">Founded 2021</div>
-                    </div>
-                </div>
-                <div class="company-description">
-                    The world's first software for fully automated creation of sound-based light shows in real-time for clubs, concerts, and festivals. AULIOS translates sound into light, eliminating the need for manual light programming.
-                </div>
-                <div class="company-details">
-                    <div class="detail-row">
-                        <div class="detail-label">Founders</div>
-                        <div class="detail-value">
-                            <a class="founder-link" href="https://www.linkedin.com/in/alexander-gerick/" target="_blank">Alexander Gerick</a>,
-                            <a class="founder-link" href="https://www.linkedin.com/in/marius-marx/" target="_blank">Marius-Julian Marx</a>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Recognition</div>
-                        <div class="detail-value">Winner of Bulldog Gin Founders' Competition (€25,000)</div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Origin</div>
-                        <div class="detail-value">Started as a CODE University project in January 2021</div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="tag">AI</span>
-                    <span class="tag">Event Tech</span>
-                    <span class="tag">Entertainment</span>
-                </div>
-            </div>
-
-            <!-- Bool Capital -->
-            <div class="company-card">
-                <div class="company-header">
-                    <div class="company-icon">BC</div>
-                    <div class="company-title-group">
-                        <div class="company-name">Bool Capital</div>
-                        <div class="company-year">Founded post-2021</div>
-                    </div>
-                </div>
-                <div class="company-description">
-                    A private investment firm building deep-tech ventures in cloud infrastructure, blockchain, and cybersecurity. Founded by the Certus One team following their successful exit to Jump Trading.
-                </div>
-                <div class="company-details">
-                    <div class="detail-row">
-                        <div class="detail-label">Founders</div>
-                        <div class="detail-value">
-                            <a class="founder-link" href="https://www.linkedin.com/in/hendrik-hofstadt/" target="_blank">Hendrik Hofstadt</a> <a href="https://x.com/hendrikhofstadt" target="_blank"><img class="social-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X"></a>,
-                            <a class="founder-link" href="https://x.com/valentalb" target="_blank">Valentin von Albrecht</a>,
-                            <a class="founder-link" href="https://x.com/leolukde" target="_blank">Leopold Schabel</a>
-                        </div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Investment in CODE</div>
-                        <div class="detail-value">Mid-seven-figure investment in CODE University</div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Focus</div>
-                        <div class="detail-value">Deep-tech ventures, blockchain, infrastructure</div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="tag">Venture Capital</span>
-                    <span class="tag">Deep Tech</span>
-                    <span class="tag">Blockchain</span>
-                </div>
-            </div>
+        <div class="methodology">
+            <h3>How this list was built</h3>
+            <p>The startups featured here were collected from publicly available sources. No private data, scraping, or LinkedIn alumni access was used. Specifically, the data came from:</p>
+            <ul>
+                <li>CODE University's own blog and entrepreneurship pages (<a href="https://code.berlin" target="_blank" rel="noopener">code.berlin</a>)</li>
+                <li>Public press coverage — TechCrunch, EU-Startups, Sifted, t3n, Gründerszene, Business Insider DE</li>
+                <li>Y Combinator company directory and Techstars cohort announcements</li>
+                <li>Crunchbase, Dealroom, and HTGF announcements for funding details</li>
+                <li>Public LinkedIn profiles indexed by Google (only profiles already publicly visible)</li>
+            </ul>
+            <p>Every founder listed has either a verifiable CODE University connection in their public bio or has been mentioned in CODE's own published materials. If you spot an error, an outdated detail, or a missing company — please open a GitHub issue or get in touch.</p>
         </div>
 
         <div class="intro-section">
@@ -562,5 +502,788 @@
         <p>Berlin, Germany • <a href="https://code.berlin">code.berlin</a></p>
         <p style="margin-top: 1.5rem; font-size: 0.9rem;">This showcase was created to demonstrate the entrepreneurial success of CODE University students and alumni.</p>
     </div>
+
+    <script>
+        const X_ICON = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>`;
+        const X_ICON_DATA = `data:image/svg+xml;utf8,${encodeURIComponent(X_ICON)}`;
+
+        const startups = [
+            {
+                name: "SLAY",
+                initials: "SL",
+                year: "Founded 2022",
+                description: "A social gaming platform focused on positivity that attracts more than 2.5 million monthly active users. SLAY creates engaging multiplayer games that bring people together in fun and meaningful ways. Now evolving into the AI companion space as 'Born'.",
+                founders: [
+                    { name: "Fabian Kamberi", linkedin: "https://www.linkedin.com/in/fabian-kamberi/", twitter: "https://x.com/fabiankamberi" },
+                    { name: "Jannis Ringwald", linkedin: "https://www.linkedin.com/in/jannis-ringwald-68720915b/", twitter: "https://x.com/JannisRingwald" },
+                    { name: "Stefan Quernhorst", linkedin: "https://www.linkedin.com/in/stefanquernhorst/", twitter: "https://x.com/stefquernhorst" }
+                ],
+                funding: "$5M seed (Accel) + $15M Series A as Born (Accel, Tencent)",
+                tags: [
+                    { label: "Y Combinator", type: "yc" },
+                    { label: "$20M+ Raised", type: "funding" },
+                    { label: "Consumer AI" },
+                    { label: "Gaming" }
+                ]
+            },
+            {
+                name: "Kombo",
+                initials: "KB",
+                year: "Founded 2022",
+                description: "A unified API for HR, payroll, and recruiting software. Kombo enables software companies to offer integrations with dozens of HR and recruiting systems at once, eliminating the need to build individual integrations.",
+                founders: [
+                    { name: "Alexander Kübel", linkedin: "https://www.linkedin.com/in/alexander-kuebel-8b8351180/" },
+                    { name: "Aike Hillbrands", linkedin: "https://www.linkedin.com/in/aike-hillbrands/", twitter: "https://x.com/AikeHillbrands" },
+                    { name: "Fabian Rothfuß", linkedin: "https://www.linkedin.com/in/fabianrothfuss/" },
+                    { name: "Niklas Higi", linkedin: "https://www.linkedin.com/in/niklashigi/", twitter: "https://x.com/shroudedcode" }
+                ],
+                funding: "€8M raised",
+                tags: [
+                    { label: "Y Combinator", type: "yc" },
+                    { label: "€8M Raised", type: "funding" },
+                    { label: "HR Tech" },
+                    { label: "API" }
+                ]
+            },
+            {
+                name: "Langdock",
+                initials: "LD",
+                year: "Founded 2023",
+                description: "A GDPR-compliant AI platform that enhances team productivity by integrating generative AI with a company's internal data. Clients include Merck and GetYourGuide.",
+                founders: [
+                    { name: "Lennard Schmidt", linkedin: "https://www.linkedin.com/in/lennardschmidt/", twitter: "https://x.com/lenschmi" },
+                    { name: "Jonas Beisswenger", linkedin: "https://www.linkedin.com/in/jonasbeisswenger/", twitter: "https://x.com/jbeissw" },
+                    { name: "Tobias Kemkes", linkedin: "https://www.linkedin.com/in/tobiaskemkes/" }
+                ],
+                funding: "$3M led by General Catalyst and La Famiglia",
+                tags: [
+                    { label: "Y Combinator", type: "yc" },
+                    { label: "$3M Raised", type: "funding" },
+                    { label: "AI" },
+                    { label: "Enterprise SaaS" }
+                ]
+            },
+            {
+                name: "Certus One",
+                initials: "C1",
+                year: "Founded 2018 • Acquired 2021",
+                description: "Blockchain engineering firm specializing in Proof of Stake infrastructure. Core developer of Wormhole, enabling cross-blockchain token transfers. Acquired by Jump Trading's digital assets group in 2021.",
+                founders: [
+                    { name: "Hendrik Hofstadt", linkedin: "https://www.linkedin.com/in/hendrik-hofstadt/", twitter: "https://x.com/hendrikhofstadt" },
+                    { name: "Valentin von Albrecht", twitter: "https://x.com/valentalb" },
+                    { name: "Leopold Schabel", twitter: "https://x.com/leolukde" }
+                ],
+                extraInfo: "First CODE University startup to be acquired (by Jump Trading, Chicago).",
+                tags: [
+                    { label: "Acquired", type: "exit" },
+                    { label: "Blockchain" },
+                    { label: "Infrastructure" }
+                ]
+            },
+            {
+                name: "Superchat",
+                initials: "SC",
+                year: "Founded 2020",
+                description: "Omnichannel business messaging platform for SMEs — aggregates WhatsApp, Instagram, Facebook Messenger, Google Business, Telegram, email, and SMS into one AI-powered inbox. Processed 55M+ messages in 2024.",
+                founders: [
+                    { name: "Yilmaz Köknar", linkedin: "https://www.linkedin.com/in/yilmaz-koeknar/" },
+                    { name: "Mika Hally", linkedin: "https://de.linkedin.com/in/mikahally" }
+                ],
+                funding: "~$19M total (Series A led by Blossom Capital, with 468 Capital)",
+                tags: [
+                    { label: "$19M Raised", type: "funding" },
+                    { label: "B2B SaaS" },
+                    { label: "Messaging" }
+                ]
+            },
+            {
+                name: "doinstruct",
+                initials: "DI",
+                year: "Founded 2021",
+                description: "AI-powered compliance and training platform for frontline workers. Auto-generates multilingual bite-sized training with no app, password, or email required — targets regulated industries.",
+                founders: [
+                    { name: "Mona Feder", linkedin: "https://www.linkedin.com/in/monafeder/" },
+                    { name: "Charlotte Rothert", linkedin: "https://de.linkedin.com/in/charlotte-rothert" },
+                    { name: "Daniel Marinkovic", linkedin: "https://www.linkedin.com/in/daniel-marinkovic-018b2b83/" },
+                    { name: "Thorsten Groß" }
+                ],
+                funding: "~€26M total (Series A €16.5M led by HV Capital, 2025)",
+                tags: [
+                    { label: "€26M Raised", type: "funding" },
+                    { label: "HR Tech" },
+                    { label: "AI Compliance" }
+                ]
+            },
+            {
+                name: "RemNote",
+                initials: "RN",
+                year: "Founded 2019",
+                description: "All-in-one knowledge management and learning tool combining note-taking, flashcards, and spaced repetition. Millions of users worldwide, reportedly profitable.",
+                founders: [
+                    { name: "Moritz Wallawitsch", linkedin: "https://www.linkedin.com/in/moritzw/", twitter: "https://x.com/MoritzW42" },
+                    { name: "Martin Schneider", twitter: "https://x.com/mart1nschneider" }
+                ],
+                funding: "$2.8M seed led by General Catalyst",
+                tags: [
+                    { label: "$2.8M Raised", type: "funding" },
+                    { label: "EdTech" },
+                    { label: "Productivity" }
+                ]
+            },
+            {
+                name: "Blair",
+                initials: "BL",
+                year: "Founded 2019 • Exited",
+                description: "Income Share Agreement (ISA) financing platform for US college students — students receive tuition funding and repay a percentage of their income after graduation. Y Combinator S19.",
+                founders: [
+                    { name: "Constantin Schreiber", linkedin: "https://www.linkedin.com/in/constantinschreiber/" },
+                    { name: "Mike Mahlkow" },
+                    { name: "David Nordhausen" }
+                ],
+                funding: "YC S19 + $6.3M seed (Tiger Global) + $100M debt facility",
+                tags: [
+                    { label: "Y Combinator", type: "yc" },
+                    { label: "Exited", type: "exit" },
+                    { label: "FinTech" }
+                ]
+            },
+            {
+                name: "Fastgen",
+                initials: "FG",
+                year: "Founded 2023",
+                description: "Low-code API and workflow builder — the 'Webflow for the Backend'. Enables developers to create REST APIs, cron jobs, and workflows via drag-and-drop. Y Combinator W23.",
+                founders: [
+                    { name: "Constantin Schreiber", linkedin: "https://www.linkedin.com/in/constantinschreiber/" },
+                    { name: "Mike Mahlkow" },
+                    { name: "David Nordhausen" }
+                ],
+                extraInfo: "Same founding team as Blair, built after their exit.",
+                tags: [
+                    { label: "Y Combinator", type: "yc" },
+                    { label: "Developer Tools" },
+                    { label: "Low-Code" }
+                ]
+            },
+            {
+                name: "handly",
+                initials: "HD",
+                year: "Founded 2021",
+                description: "All-in-one business management platform for home service tradespeople — covers company formation, scheduling, invoicing, lead generation, and digital presence for plumbers, electricians, and renovators.",
+                founders: [
+                    { name: "Bastian Meyer", linkedin: "https://www.linkedin.com/in/bastianmeyer/" },
+                    { name: "Klaas Krüger" }
+                ],
+                funding: "€5.25M total (Seed €3.75M co-led by Stride VC and 20VC, 2025)",
+                tags: [
+                    { label: "€5.25M Raised", type: "funding" },
+                    { label: "FinTech" },
+                    { label: "Home Services" }
+                ]
+            },
+            {
+                name: "muffintech",
+                initials: "MT",
+                year: "Founded 2021",
+                description: "Conversational AI specifically trained for the insurance industry. Their LLM scored 98% on the 34D insurance exam (vs. ChatGPT's 52%). Techstars Berlin Fall 2022 cohort.",
+                founders: [
+                    { name: "Felix Koepp", linkedin: "https://www.linkedin.com/in/felixkoepp/", twitter: "https://x.com/felixkoepp" },
+                    { name: "Elli Wolf", linkedin: "https://www.linkedin.com/in/elli-wolf-221723157/" },
+                    { name: "Simon Moser" },
+                    { name: "Tomas Gan" }
+                ],
+                funding: "€3.5M (ff Venture Capital, Techstars) + €800K IBB Pro FIT",
+                tags: [
+                    { label: "Techstars" },
+                    { label: "€3.5M Raised", type: "funding" },
+                    { label: "InsurTech" },
+                    { label: "AI" }
+                ]
+            },
+            {
+                name: "Mietz",
+                initials: "MZ",
+                year: "Founded 2021",
+                description: "PropTech platform for end-to-end digital rental management — AI-powered Tinder-style matching between landlords and tenants, fully digital rental contracts. Backed by Mario Götze and Shutterstock's Jon Oringer.",
+                founders: [
+                    { name: "Lena Tuckermann" },
+                    { name: "Johann Kim", linkedin: "https://www.linkedin.com/in/johannkim99/" }
+                ],
+                funding: "Multi-million € across pre-seed and seed rounds",
+                tags: [
+                    { label: "Multi-€M", type: "funding" },
+                    { label: "PropTech" },
+                    { label: "AI" }
+                ]
+            },
+            {
+                name: "w3.fund",
+                initials: "W3",
+                year: "Founded 2023",
+                description: "Berlin-based Web3 venture capital fund investing globally in early-stage blockchain startups. Operates w3ventures (equity), w3wave (liquid tokens), w3.hub co-working space, and the w3.vision conference.",
+                founders: [
+                    { name: "Vicktoria Klich", linkedin: "https://www.linkedin.com/in/vicktoriaklich/", twitter: "https://x.com/VicktoriaKlich" },
+                    { name: "Henrik Bredenbals", linkedin: "https://www.linkedin.com/in/henrikbredenbals/" },
+                    { name: "Jonathan Kuhl" }
+                ],
+                funding: "€10M AUM, 35+ LPs, 19 portfolio companies",
+                tags: [
+                    { label: "Venture Capital" },
+                    { label: "Web3" },
+                    { label: "€10M Fund", type: "funding" }
+                ]
+            },
+            {
+                name: "traide AI",
+                initials: "TR",
+                year: "Founded 2021",
+                description: "AI SaaS for customs and international trade — automatically translates product master data into globally standardized customs tariff codes (HS codes). Started in CODE's incubator programme.",
+                founders: [
+                    { name: "Leonie Althaus", linkedin: "https://www.linkedin.com/in/leonie-althaus-ba35bb167/" },
+                    { name: "Philipp Friebertshäuser", linkedin: "https://www.linkedin.com/in/philipp-friebertsh%C3%A4user-a96304183/" },
+                    { name: "Hendrik Niemann", linkedin: "https://www.linkedin.com/in/hendrikniemann/" }
+                ],
+                funding: "Seven-figure pre-seed led by HTGF, Smart Infrastructure Ventures",
+                tags: [
+                    { label: "Pre-seed", type: "funding" },
+                    { label: "AI" },
+                    { label: "Trade Tech" }
+                ]
+            },
+            {
+                name: "tokenstreet",
+                initials: "TS",
+                year: "Founded 2020",
+                description: "FinTech platform giving retail investors diversified access to private equity and alternative asset classes through tokenized funds, with entry from as low as €25.",
+                founders: [
+                    { name: "Vincent Amm", linkedin: "https://www.linkedin.com/in/vincent-amm-1a337a19a/" },
+                    { name: "Mona Feder", linkedin: "https://www.linkedin.com/in/monafeder/" },
+                    { name: "Lenny-Campino Hartmann" },
+                    { name: "Alexander Borowski" }
+                ],
+                funding: "~€875K across two angel rounds",
+                tags: [
+                    { label: "FinTech" },
+                    { label: "Tokenization" }
+                ]
+            },
+            {
+                name: "pick'em",
+                initials: "PK",
+                year: "Founded 2022",
+                description: "Viral flavored toothpick brand (Mango Madness, Cola Cherry, Matcha). Sold 10M+ units, 700K+ TikTok followers, brand deals with KSI and Macklemore. Aired on German Shark Tank.",
+                founders: [
+                    { name: "Folkert Bowler", linkedin: "https://uk.linkedin.com/in/folkert-bowler-216570248" },
+                    { name: "Jonny Caspari", linkedin: "https://de.linkedin.com/in/jonny-caspari-bb0812192" },
+                    { name: "Max Schröpfer" },
+                    { name: "Niklas Terrahe", linkedin: "https://www.linkedin.com/in/nterrahe/" },
+                    { name: "Joel Enayat" }
+                ],
+                funding: "€200K from Judith Williams (Die Höhle der Löwen) + Good Brands AG acquisition",
+                tags: [
+                    { label: "Acquired", type: "exit" },
+                    { label: "Consumer" },
+                    { label: "D2C" }
+                ]
+            },
+            {
+                name: "AULIOS",
+                initials: "AU",
+                year: "Founded 2021",
+                description: "The world's first software for fully automated creation of sound-based light shows in real-time for clubs, concerts, and festivals. Winner of the Bulldog Gin Founders' Competition (€25,000).",
+                founders: [
+                    { name: "Alexander Gerick", linkedin: "https://www.linkedin.com/in/alexander-gerick/" },
+                    { name: "Marius-Julian Marx", linkedin: "https://www.linkedin.com/in/marius-marx/" }
+                ],
+                extraInfo: "Started as a CODE University project in January 2021.",
+                tags: [
+                    { label: "AI" },
+                    { label: "Event Tech" },
+                    { label: "Entertainment" }
+                ]
+            },
+            {
+                name: "MySoftwareScout",
+                initials: "MS",
+                year: "Founded 2019 • Acquired 2020",
+                description: "B2B software discovery platform helping SMEs find and select the right software vendors. Started as a summer break CODE student project. Acquired by onetool in 2020 — one of the first CODE alumni exits.",
+                founders: [
+                    { name: "Lukas Kneip", linkedin: "https://www.linkedin.com/in/lukas-kneip-82613a182/" },
+                    { name: "Jonas Südfels" },
+                    { name: "Harry Trippel" },
+                    { name: "Stefan Quernhorst", linkedin: "https://www.linkedin.com/in/stefanquernhorst/", twitter: "https://x.com/stefquernhorst" }
+                ],
+                funding: "APX Berlin accelerator",
+                tags: [
+                    { label: "Acquired", type: "exit" },
+                    { label: "APX" },
+                    { label: "B2B SaaS" }
+                ]
+            },
+            {
+                name: "Nul",
+                initials: "NL",
+                year: "Founded 2020 • Acquired 2021",
+                description: "Monthly carbon offset subscription for companies, helping teams become climate neutral by offsetting individual employee carbon footprints. Acquired by Athyna 13 months after founding.",
+                founders: [
+                    { name: "Niklas Terrahe", linkedin: "https://www.linkedin.com/in/nterrahe/" },
+                    { name: "Fabrice Diedrich" },
+                    { name: "Liam Hänel" }
+                ],
+                tags: [
+                    { label: "Acquired", type: "exit" },
+                    { label: "CleanTech" },
+                    { label: "SaaS" }
+                ]
+            },
+            {
+                name: "Ivy Protocol",
+                initials: "IV",
+                year: "Founded 2022",
+                description: "Tech infrastructure for unified voluntary carbon markets — embeds natural capital (ecosystem functions, CO2 reduction) into the economic system at scale using AI co-pilots.",
+                founders: [
+                    { name: "Niklas Terrahe", linkedin: "https://www.linkedin.com/in/nterrahe/" },
+                    { name: "Liam Hänel" },
+                    { name: "Gilad Bechor" }
+                ],
+                tags: [
+                    { label: "CleanTech" },
+                    { label: "Web3" },
+                    { label: "AI" }
+                ]
+            },
+            {
+                name: "Zentio",
+                initials: "ZN",
+                year: "Founded 2025",
+                description: "AI-native real-time production planning platform for manufacturing. Organizes operational, machine, and production data from ERP systems into a self-learning flywheel using AI agents.",
+                founders: [
+                    { name: "Christophe Kafrouni", linkedin: "https://be.linkedin.com/in/christophe-kafrouni-05907319b" },
+                    { name: "Julian Rose", linkedin: "https://www.linkedin.com/in/juliantristanrose/" },
+                    { name: "Immo Polewka" }
+                ],
+                funding: "€1.4M Pre-Seed (HTGF, SIVentures)",
+                tags: [
+                    { label: "€1.4M Raised", type: "funding" },
+                    { label: "Manufacturing" },
+                    { label: "AI" }
+                ]
+            },
+            {
+                name: "OWWN",
+                initials: "OW",
+                year: "Founded 2021 • Shut down 2023",
+                description: "Social banking app for Gen Z — combined student finance (KFW loans), Visa debit card, and social features. Formerly Wajve. Partnered with N26 at shutdown to migrate users.",
+                founders: [
+                    { name: "Bastian Krautwald", linkedin: "https://www.linkedin.com/in/bastian-krautwald-56b2b1b1/" },
+                    { name: "David Meyer" }
+                ],
+                funding: "€5M seed raised before shutdown",
+                tags: [
+                    { label: "Shut down", type: "shutdown" },
+                    { label: "€5M Raised", type: "funding" },
+                    { label: "FinTech" }
+                ]
+            },
+            {
+                name: "Primefold",
+                initials: "PF",
+                year: "Founded 2023",
+                description: "AI-native 'Experience Intelligence' platform that compresses scattered product/market signals into decision-ready structure. First product (Primefold XI) targets real estate teams. €1M ARR with 17 employees reported.",
+                founders: [
+                    { name: "Max Ropohl", linkedin: "https://www.linkedin.com/in/max-ropohl/" }
+                ],
+                tags: [
+                    { label: "€1M ARR", type: "funding" },
+                    { label: "AI" },
+                    { label: "B2B SaaS" }
+                ]
+            },
+            {
+                name: "Worldwithin",
+                initials: "WW",
+                year: "Founded 2020",
+                description: "Lucid dreaming mobile app — dream journal, reality checks, meditation audios, sleep tracking, and progress stats to help users learn to control their dreams.",
+                founders: [
+                    { name: "Thorge Lindner", linkedin: "https://www.linkedin.com/in/thorge/", twitter: "https://x.com/ThorgeLindner" }
+                ],
+                tags: [
+                    { label: "Consumer" },
+                    { label: "Wellness" }
+                ]
+            },
+            {
+                name: "flatsforfriendz",
+                initials: "FF",
+                year: "Founded 2022",
+                description: "Network-based apartment mediation platform connecting people seeking and offering flats through trusted social networks and Instagram integration. 839+ 5-star Trustpilot reviews.",
+                founders: [
+                    { name: "Friedrich Gies", linkedin: "https://www.linkedin.com/in/fgies/" },
+                    { name: "Donna Mägi", linkedin: "https://www.linkedin.com/in/donnamagi/" }
+                ],
+                tags: [
+                    { label: "PropTech" },
+                    { label: "Social" }
+                ]
+            },
+            {
+                name: "snead",
+                initials: "SN",
+                year: "Founded 2023",
+                description: "Golf coaching software platform connecting students and coaches for online swing analysis, with voice-over tools, coach cam, and dynamic annotation overlays.",
+                founders: [
+                    { name: "Johann Kim", linkedin: "https://www.linkedin.com/in/johannkim99/" }
+                ],
+                tags: [
+                    { label: "SportsTech" },
+                    { label: "EdTech" }
+                ]
+            },
+            {
+                name: "Susteyn",
+                initials: "SY",
+                year: "Founded 2019",
+                description: "Indoor office farming startup building modular office farms that let employees grow their own fresh greens for meals and drinks on-site. Selected for CODE's Launchpad program.",
+                founders: [
+                    { name: "Simon Heuschkel" }
+                ],
+                tags: [
+                    { label: "AgTech" },
+                    { label: "Sustainability" }
+                ]
+            },
+            {
+                name: "Bool Capital",
+                initials: "BC",
+                year: "Founded 2021",
+                description: "A private investment firm building deep-tech ventures in cloud infrastructure, blockchain, and cybersecurity. Founded by the Certus One team following their exit to Jump Trading — made a mid-seven-figure investment back into CODE University.",
+                founders: [
+                    { name: "Hendrik Hofstadt", linkedin: "https://www.linkedin.com/in/hendrik-hofstadt/", twitter: "https://x.com/hendrikhofstadt" },
+                    { name: "Valentin von Albrecht", twitter: "https://x.com/valentalb" },
+                    { name: "Leopold Schabel", twitter: "https://x.com/leolukde" }
+                ],
+                tags: [
+                    { label: "Venture Capital" },
+                    { label: "Deep Tech" }
+                ]
+            },
+            {
+                name: "Ontora",
+                initials: "ON",
+                year: "Founded 2025 • YC P26",
+                description: "AI agents that interview every employee in an organization to uncover process bottlenecks and deliver consulting-grade operational recommendations. Described as 'Cursor for consultants' — reduces months of consulting work down to hours via a Process Discovery Agent, Meeting Agent, and Unified Context Layer.",
+                founders: [
+                    { name: "Maximilian Arnold", linkedin: "https://www.linkedin.com/in/arnold-max/", twitter: "https://x.com/maxonary" },
+                    { name: "Sebastian Luft", linkedin: "https://www.linkedin.com/in/sebastian-luft/" },
+                    { name: "Leon Iwanowitsch", linkedin: "https://www.linkedin.com/in/leon-j-iwanowitsch/" }
+                ],
+                funding: "Backed by Y Combinator (P26 batch)",
+                tags: [
+                    { label: "Y Combinator", type: "yc" },
+                    { label: "AI Agents" },
+                    { label: "Enterprise AI" }
+                ]
+            },
+            {
+                name: "BenchFlow",
+                initials: "BF",
+                year: "Founded 2024",
+                description: "AI evaluation platform — a unified environment for testing and benchmarking LLMs before production deployment. Backed by Jeff Dean (Google Chief Scientist). Co-founder Moritz Wallawitsch previously co-founded RemNote while at CODE.",
+                founders: [
+                    { name: "Moritz Wallawitsch", linkedin: "https://www.linkedin.com/in/moritzw/", twitter: "https://x.com/MoritzW42" },
+                    { name: "Xiangyi Li" }
+                ],
+                funding: "$850K seed (Jeff Dean and others)",
+                tags: [
+                    { label: "$850K Raised", type: "funding" },
+                    { label: "AI" },
+                    { label: "Dev Tools" }
+                ]
+            },
+            {
+                name: "Registercheck",
+                initials: "RC",
+                year: "Founded 2024",
+                description: "AI-powered German commercial register intelligence platform. Indexes 4.5M+ German companies with 10M+ person/ownership relationships. Features an AI Co-Pilot for legal/M&A research and an MCP-native Handelsregister AI Agent. Reached 1,200+ users within 4 weeks of launch.",
+                founders: [
+                    { name: "David Korn", linkedin: "https://www.linkedin.com/in/korn-david/" },
+                    { name: "Sebastian Luft", linkedin: "https://www.linkedin.com/in/sebastian-luft/" },
+                    { name: "Robert Schröder", linkedin: "https://www.linkedin.com/in/dasistrobert/" },
+                    { name: "Dominik Scherm", linkedin: "https://www.linkedin.com/in/dominik-thomas-scherm/" }
+                ],
+                tags: [
+                    { label: "Legal AI" },
+                    { label: "Business Intelligence" }
+                ]
+            },
+            {
+                name: "Keeet",
+                initials: "KE",
+                year: "Founded 2018 • Closed 2021",
+                description: "Self-service user research platform — centralized sourcing of test respondents, scheduling of user interviews, and post-processing of results. Clients included Business Insider, German Accelerator, and APX. The founding team went on to build Superchat after Keeet closed.",
+                founders: [
+                    { name: "Yilmaz Köknar", linkedin: "https://www.linkedin.com/in/yilmaz-koeknar/" },
+                    { name: "Mika Hally", linkedin: "https://de.linkedin.com/in/mikahally" },
+                    { name: "Henrik Engelbrink" }
+                ],
+                funding: "€50K pre-seed from APX (Axel Springer + Porsche)",
+                extraInfo: "Precursor company to Superchat — same founding team.",
+                tags: [
+                    { label: "Closed", type: "exit" },
+                    { label: "UX Research" },
+                    { label: "B2B SaaS" }
+                ]
+            },
+            {
+                name: "Bouncy",
+                initials: "BY",
+                year: "Founded 2019 • Dissolved",
+                description: "Social music discovery and fan engagement app. Users voted on DJ playlists, discovered music through community recommendations, and joined fan circles of artists like Luciano. Partnered with Sony. The founding team later built SLAY.",
+                founders: [
+                    { name: "Fabian Kamberi", linkedin: "https://www.linkedin.com/in/fabian-kamberi/", twitter: "https://x.com/fabiankamberi" },
+                    { name: "Jannis Ringwald", linkedin: "https://www.linkedin.com/in/jannis-ringwald-68720915b/" },
+                    { name: "Don Eteghwia" },
+                    { name: "Francesco Salafrica" }
+                ],
+                extraInfo: "Precursor to SLAY — same core founding team.",
+                tags: [
+                    { label: "Closed", type: "exit" },
+                    { label: "Music Tech" },
+                    { label: "Consumer App" }
+                ]
+            },
+            {
+                name: "nft studio berlin",
+                initials: "NS",
+                year: "Founded 2021",
+                description: "Full-service Web3/NFT strategy agency — end-to-end NFT project execution: strategy, roadmap, minting, artist collaborations, and investor relations. The founding team evolved this agency into the w3.fund investment vehicle.",
+                founders: [
+                    { name: "Vicktoria Klich", linkedin: "https://www.linkedin.com/in/vicktoriaklich/", twitter: "https://x.com/VicktoriaKlich" },
+                    { name: "Jonathan Kuhl" },
+                    { name: "Henrik Bredenbals", linkedin: "https://www.linkedin.com/in/henrikbredenbals/" }
+                ],
+                extraInfo: "Precursor agency to w3.fund.",
+                tags: [
+                    { label: "Web3" },
+                    { label: "NFT" },
+                    { label: "Agency" }
+                ]
+            },
+            {
+                name: "Between The Lines",
+                initials: "BL",
+                year: "Founded 2016",
+                description: "Non-profit digital mental health platform for youth. Connects teenagers in psychological distress to local help services, therapists, and counselling programs anonymously and free of charge. Active in 6+ German cities with 16 team members and 60+ supporters.",
+                founders: [
+                    { name: "Nick Wüsthoff", linkedin: "https://de.linkedin.com/in/nick-wüsthoff", twitter: "https://x.com/dernickw" },
+                    { name: "Oliver Kröger", linkedin: "https://www.linkedin.com/in/oliver-kr%C3%B6ger-28213a235/" },
+                    { name: "Beat Weichsler" }
+                ],
+                funding: "€72K grant from Ferry Porsche Foundation (3-year)",
+                tags: [
+                    { label: "Non-Profit" },
+                    { label: "Mental Health" },
+                    { label: "Social Impact" }
+                ]
+            },
+            {
+                name: "Leav",
+                initials: "LV",
+                year: "Founded 2021",
+                description: "Digital therapeutics app for cannabis use disorder. Integrates Cognitive Behavioral Therapy (CBT) and Motivational Enhancement Therapy modules for self-directed therapy between professional sessions. Working toward DiGA certification (prescribable digital health app in Germany).",
+                founders: [
+                    { name: "Jan Brebaum", linkedin: "https://www.linkedin.com/in/jan-brebaum-a227aa197/" },
+                    { name: "Dr. Milosz Paul Rosinski", linkedin: "https://www.linkedin.com/in/milosz-paul-rosinski-7552937/" }
+                ],
+                tags: [
+                    { label: "Digital Health" },
+                    { label: "Mental Health" },
+                    { label: "DiGA" }
+                ]
+            },
+            {
+                name: "somethingcreative",
+                initials: "SC2",
+                year: "Founded 2018",
+                description: "Product design agency in Berlin-Kreuzberg specializing in UX/UI research, prototyping, and end-to-end digital product development. Acquired The Pixel Beat. 11 employees with an average age of 25.",
+                founders: [
+                    { name: "Samuel Frey", linkedin: "https://www.linkedin.com/in/samuel-frey-b02693144/", twitter: "https://x.com/samuelfrey" },
+                    { name: "Niklas Tomkowitz", linkedin: "https://de.linkedin.com/in/niklas-tomkowitz-aa3727103", twitter: "https://x.com/niklastomkowitz" }
+                ],
+                tags: [
+                    { label: "Design Agency" },
+                    { label: "Product Design" },
+                    { label: "UX/UI" }
+                ]
+            },
+            {
+                name: "LoadUp",
+                initials: "LU",
+                year: "Founded 2023",
+                description: "AI-powered logistics recruiting platform for the DACH region. Connects logistics companies with truck drivers, bus drivers, and warehouse workers. Claims 600+ customers across Germany, Austria, and Switzerland. Founder's background as a truck driver in the family logistics business inspired the product.",
+                founders: [
+                    { name: "Christopher Röskes", linkedin: "https://www.linkedin.com/in/christopher-roeskes/" }
+                ],
+                funding: "EXIST program grant (German federal)",
+                tags: [
+                    { label: "HR Tech" },
+                    { label: "Logistics" }
+                ]
+            },
+            {
+                name: "PlanD",
+                initials: "PD",
+                year: "Founded 2018",
+                description: "All-in-one SaaS platform for building cleaning companies. Features shift planning, time tracking, payroll, invoicing, and AI assistance. Founders worked at a cleaning company as students and couldn't find a digital solution — so they built it. Presented at CMS Berlin 2025.",
+                founders: [
+                    { name: "Tobias Wittekindt", linkedin: "https://www.linkedin.com/in/tobias-wittekindt-50754b181/" },
+                    { name: "Luca Schleiss" },
+                    { name: "Karl Singer" }
+                ],
+                funding: "~$490K (per PitchBook)",
+                tags: [
+                    { label: "B2B SaaS" },
+                    { label: "Facility Tech" }
+                ]
+            },
+            {
+                name: "TripLegend",
+                initials: "TL",
+                year: "Founded 2020",
+                description: "Sustainable small-group adventure travel for solo travelers aged 25-45. Off-the-beaten-path destinations, 100% CO2-offset trips, 70% of revenue stays in destination country. Winner of Travel Startup Night 2021. CODE CTO Hanno Grimm built the internal CODE learning platform before joining.",
+                founders: [
+                    { name: "Hanno Grimm", linkedin: "https://www.linkedin.com/in/hanno-grimm/" },
+                    { name: "Alexander Ditzel", linkedin: "https://www.linkedin.com/in/alexanderditzel/" },
+                    { name: "Brian Ruhe" },
+                    { name: "Martin Ditzel" }
+                ],
+                funding: "Berlin Startup Scholarship + angel funding",
+                tags: [
+                    { label: "Travel" },
+                    { label: "Sustainability" },
+                    { label: "D2C" }
+                ]
+            },
+            {
+                name: "LokalFrisch",
+                initials: "LF",
+                year: "Founded 2020 • Wound down",
+                description: "Built online shops for local/analog businesses during COVID and advised them through digital transformation. Helped a Duisburg produce wholesaler recover from 80% revenue loss by launching an online shop serving 600+ households in 4 weeks. Part of CODE's 2020 Catalyst Launchpad cohort.",
+                founders: [
+                    { name: "Christopher Röskes", linkedin: "https://www.linkedin.com/in/christopher-roeskes/" }
+                ],
+                funding: "EXIST program grant via CODE",
+                extraInfo: "Founder later pivoted to LoadUp.",
+                tags: [
+                    { label: "Closed", type: "exit" },
+                    { label: "Local Commerce" }
+                ]
+            },
+            {
+                name: "Worn Stories",
+                initials: "WS",
+                year: "Founded 2021",
+                description: "Sustainable clothing swap platform — users list garments and pass along the 'story' of each item, building community-driven narrative around secondhand fashion. Won the 'Investment Ready Award' at CODE's Expo Day 2020.",
+                founders: [
+                    { name: "Hannah Rau", linkedin: "https://de.linkedin.com/in/hannah-rau-aa2985172" },
+                    { name: "Marie Spreitzer", linkedin: "https://www.linkedin.com/in/marie-spreitzer/" },
+                    { name: "Mia McCarthy" }
+                ],
+                tags: [
+                    { label: "Sustainability" },
+                    { label: "Fashion" },
+                    { label: "Circular Economy" }
+                ]
+            }
+        ];
+
+        function renderFounder(f) {
+            const primaryUrl = f.linkedin || f.twitter;
+            const nameHtml = primaryUrl
+                ? `<a class="founder-link" href="${primaryUrl}" target="_blank" rel="noopener">${f.name}</a>`
+                : f.name;
+            const twitterHtml = (f.linkedin && f.twitter)
+                ? ` <a href="${f.twitter}" target="_blank" rel="noopener" aria-label="${f.name} on X"><img class="social-icon" src="${X_ICON_DATA}" alt="X"></a>`
+                : '';
+            return nameHtml + twitterHtml;
+        }
+
+        function renderCard(s) {
+            const foundersHtml = s.founders.map(renderFounder).join(', ');
+            const fundingRow = s.funding ? `
+                <div class="detail-row">
+                    <div class="detail-label">Funding</div>
+                    <div class="detail-value">${s.funding}</div>
+                </div>` : '';
+            const extraRow = s.extraInfo ? `
+                <div class="detail-row">
+                    <div class="detail-label">Notable</div>
+                    <div class="detail-value">${s.extraInfo}</div>
+                </div>` : '';
+            const tagsHtml = s.tags.map(t =>
+                `<span class="tag${t.type ? ' ' + t.type : ''}">${t.label}</span>`
+            ).join('');
+
+            return `
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-icon">${s.initials}</div>
+                        <div class="company-title-group">
+                            <div class="company-name">${s.name}</div>
+                            <div class="company-year">${s.year}</div>
+                        </div>
+                    </div>
+                    <div class="company-description">${s.description}</div>
+                    <div class="company-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Founders</div>
+                            <div class="detail-value">${foundersHtml}</div>
+                        </div>
+                        ${fundingRow}
+                        ${extraRow}
+                    </div>
+                    <div class="tags">${tagsHtml}</div>
+                </div>
+            `;
+        }
+
+        const FILTERS = [
+            { id: 'all', label: 'All' },
+            { id: 'yc', label: 'Y Combinator', match: s => s.tags.some(t => t.type === 'yc') },
+            { id: 'funded', label: 'Funded', match: s => s.tags.some(t => t.type === 'funding') },
+            { id: 'exit', label: 'Exits', match: s => s.tags.some(t => t.type === 'exit') },
+            { id: 'ai', label: 'AI', match: s => s.tags.some(t => /AI/i.test(t.label)) },
+            { id: 'fintech', label: 'FinTech', match: s => s.tags.some(t => /FinTech/i.test(t.label)) },
+            { id: 'blockchain', label: 'Web3/Blockchain', match: s => s.tags.some(t => /(Web3|Blockchain)/i.test(t.label)) }
+        ];
+
+        function render(filterId = 'all') {
+            const f = FILTERS.find(x => x.id === filterId) || FILTERS[0];
+            const list = filterId === 'all' ? startups : startups.filter(f.match);
+            document.getElementById('companies-grid').innerHTML = list.map(renderCard).join('');
+        }
+
+        function renderFilterBar() {
+            const bar = document.getElementById('filter-bar');
+            bar.innerHTML = FILTERS.map((f, i) =>
+                `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${f.id}">${f.label}</button>`
+            ).join('');
+            bar.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON') return;
+                bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                render(e.target.dataset.filter);
+            });
+        }
+
+        function renderStats() {
+            document.getElementById('stat-count').textContent = startups.length;
+            document.getElementById('stat-yc').textContent = startups.filter(s => s.tags.some(t => t.type === 'yc')).length;
+            document.getElementById('stat-exits').textContent = startups.filter(s => s.tags.some(t => t.type === 'exit')).length;
+        }
+
+        renderStats();
+        renderFilterBar();
+        render();
+    </script>
 </body>
 </html>
