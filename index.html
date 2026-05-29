@@ -129,6 +129,15 @@
             font-size: 1.5rem;
             font-weight: 700;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .company-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+            padding: 6px;
         }
 
         .company-title-group {
@@ -506,6 +515,50 @@
     <script>
         const X_ICON = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>`;
         const X_ICON_DATA = `data:image/svg+xml;utf8,${encodeURIComponent(X_ICON)}`;
+
+        // Domain mapping for fetching logos via Clearbit Logo API.
+        // Defunct companies are omitted on purpose — they'll fall back to initials.
+        const DOMAINS = {
+            "Born (formerly SLAY)": "born.com",
+            "Kombo": "kombo.dev",
+            "Langdock": "langdock.com",
+            "Certus One": "certus.one",
+            "Superchat": "superchat.com",
+            "doinstruct": "doinstruct.com",
+            "RemNote": "remnote.com",
+            "Fastgen": "fastgen.com",
+            "handly": "handly.de",
+            "muffintech": "muffintech.ai",
+            "Mietz": "mietz.app",
+            "w3.fund": "w3.fund",
+            "traide AI": "traide.ai",
+            "pick'em": "pickem.de",
+            "AULIOS": "aulios.com",
+            "Ivy Protocol": "ivyprotocol.com",
+            "Zentio": "zentio.ai",
+            "Primefold": "primefold.com",
+            "Worldwithin": "worldwithin.app",
+            "flatsforfriendz": "flatsforfriendz.com",
+            "snead": "snead.app",
+            "Susteyn": "susteyn.com",
+            "Bool Capital": "bool.capital",
+            "Ontora": "ontora.com",
+            "BenchFlow": "benchflow.ai",
+            "Registercheck": "registercheck.de",
+            "Between The Lines": "between-the-lines.app",
+            "Leav": "leav.tech",
+            "somethingcreative": "somethingcreative.berlin",
+            "LoadUp": "loadup.de",
+            "PlanD": "pland.app",
+            "TripLegend": "triplegend.com"
+        };
+
+        function logoHtml(s) {
+            const domain = DOMAINS[s.name];
+            if (!domain) return s.initials;
+            const fallback = s.initials.replace(/'/g, "\\'");
+            return `<img src="https://logo.clearbit.com/${domain}" alt="${s.name} logo" onerror="this.parentNode.textContent='${fallback}'">`;
+        }
 
         const startups = [
             {
@@ -1226,7 +1279,7 @@
             return `
                 <div class="company-card">
                     <div class="company-header">
-                        <div class="company-icon">${s.initials}</div>
+                        <div class="company-icon">${logoHtml(s)}</div>
                         <div class="company-title-group">
                             <div class="company-name">${s.name}</div>
                             <div class="company-year">${s.year}</div>
